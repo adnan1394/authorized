@@ -1,5 +1,5 @@
 import { BaseModel } from './base.model';
-import { Model } from 'objection';
+import { Model, ValidationError } from 'objection';
 import { GroupModel } from './group.model';
 
 export class RoleModel extends BaseModel {
@@ -8,6 +8,28 @@ export class RoleModel extends BaseModel {
   }
   role: string;
   groupId: GroupModel;
+
+  validate() {
+    if (!['regular', 'manager', 'globalManager'].includes(this.role)) {
+      throw new ValidationError({
+        message: 'Invalid value for role',
+        type: 'MyCustomError',
+      });
+    } else if (!this.groupId && this.role !== 'globalManager') {
+      throw new ValidationError({
+        message: 'groupId field can not be empty',
+        type: 'MyCustomError',
+      });
+    }
+  }
+
+  $beforeInsert() {
+    this.validate();
+  }
+
+  $beforeUpdate() {
+    this.validate();
+  }
 
   static get relationMappings() {
     return {
