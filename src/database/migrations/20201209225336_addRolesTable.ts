@@ -1,12 +1,14 @@
 import * as Knex from 'knex';
 
-const tableName = '';
+const tableName = 'roles';
 
 export async function up(knex: Knex) {
   return knex.schema.createTable(tableName, (t) => {
     // this creates an "id" column that gets autoincremented
     t.increments().primary();
-
+    t.string('role').notNullable();
+    t.integer('group_id').nullable();
+    t.foreign('group_id').references('groups.id');
   });
 }
 

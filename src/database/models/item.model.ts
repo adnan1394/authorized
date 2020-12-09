@@ -16,7 +16,7 @@ export class ItemModel extends BaseModel {
         modelClass: `${__dirname}/collection.model`,
         relation: Model.BelongsToOneRelation,
         join: {
-          from: 'items.parentId',
+          from: 'items.parent_id',
           to: 'collections.id',
         },
       },

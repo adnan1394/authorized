@@ -37,7 +37,7 @@ export class RoleModel extends BaseModel {
         modelClass: `${__dirname}/group.model`,
         relation: Model.HasOneRelation,
         join: {
-          from: 'roles.groupId',
+          from: 'roles.group_id',
           to: 'groups.id',
         },
       },

@@ -18,8 +18,8 @@ export class UserModel extends BaseModel {
         join: {
           from: 'users.id',
           through: {
-            from: 'user_roles.userId',
-            to: 'user_roles.rolesId',
+            from: 'user_roles.user_id',
+            to: 'user_roles.roles_id',
           },
           to: 'roles.id',
         },

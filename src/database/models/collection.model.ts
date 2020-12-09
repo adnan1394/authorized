@@ -17,15 +17,15 @@ export class CollectionModel extends BaseModel {
         relation: Model.HasManyRelation,
         join: {
           from: 'collections.id',
-          to: 'items.parentId',
+          to: 'items.parent_id',
         },
       },
       group: {
         modelClass: `${__dirname}/group.model`,
         relation: Model.BelongsToOneRelation,
         join: {
-          from: 'collections.groupId',
-          to: 'group.id',
+          from: 'collections.group_id',
+          to: 'groups.id',
         },
       },
     };

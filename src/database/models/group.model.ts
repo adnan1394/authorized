@@ -15,7 +15,7 @@ export class GroupModel extends BaseModel {
         relation: Model.HasManyRelation,
         join: {
           from: 'groups.id',
-          to: 'collections.groupId',
+          to: 'collections.group_id',
         },
       },
     };
