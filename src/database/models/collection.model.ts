@@ -13,7 +13,7 @@ export class CollectionModel extends BaseModel {
   static get relationMappings() {
     return {
       items: {
-        modelClass: `${__dirname}/items.model`,
+        modelClass: `${__dirname}/item.model`,
         relation: Model.HasManyRelation,
         join: {
           from: 'collections.id',
