@@ -11,9 +11,11 @@ import {
 } from '@nestjs/common';
 import { CollectionModel } from 'src/database/models/collection.model';
 import { GroupModel } from 'src/database/models/group.model';
+import { ItemModel } from 'src/database/models/item.model';
 import { NotFoundInterceptor } from 'src/shared/not-found.interceptor';
 import { CollectionsService } from './collections.service';
 import { GroupsService } from './groups.service';
+import { ItemsService } from './items.service';
 
 @Controller('groups')
 @UseInterceptors(NotFoundInterceptor)
@@ -21,6 +23,7 @@ export class GroupsController {
   constructor(
     private groupsService: GroupsService,
     private collectionService: CollectionsService,
+    private itemsService: ItemsService,
   ) {}
   @Get()
   async findAll() {
@@ -85,5 +88,45 @@ export class GroupsController {
     @Param('collectionId', new ParseIntPipe()) collectionId: number,
   ) {
     return this.collectionService.delete(collectionId);
+  }
+
+  @Get(':id/collections/:collectionId/items')
+  async getItems(
+    @Param('collectionId', new ParseIntPipe()) collectionId: number,
+  ) {
+    return this.itemsService.findAllByCollection(collectionId);
+  }
+
+  @Get(':id/collections/:collectionId/items/:itemId')
+  async getItem(
+    @Param('collectionId', new ParseIntPipe()) collectionId: number,
+    @Param('itemId', new ParseIntPipe()) itemId: number,
+  ) {
+    return this.itemsService.findOneByCollection(itemId, collectionId);
+  }
+
+  @Post(':id/collections/:collectionId/items')
+  async addItem(
+    @Param('collectionId', new ParseIntPipe()) parentId: number,
+    @Body() props: Partial<ItemModel>,
+  ) {
+    return this.itemsService.create({ ...props, parentId });
+  }
+
+  @Put(':id/collections/:collectionId/items/:itemId')
+  async editItem(
+    @Param('collectionId', new ParseIntPipe()) parentId: number,
+    @Param('itemId', new ParseIntPipe()) itemId: number,
+    @Body() props: Partial<ItemModel>,
+  ) {
+    return this.itemsService.updateInCollection(itemId, parentId, props);
+  }
+
+  @Delete(':id/collections/:collectionId/items/:itemId')
+  async removeItem(
+    @Param('collectionId', new ParseIntPipe()) parentId: number,
+    @Param('itemId', new ParseIntPipe()) itemId: number,
+  ) {
+    return this.itemsService.deleteInCollection(itemId, parentId);
   }
 }

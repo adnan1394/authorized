@@ -8,7 +8,7 @@ export class ItemModel extends BaseModel {
   }
 
   name: string;
-  parentId: CollectionModel;
+  parentId: number;
 
   static get relationMappings() {
     return {
