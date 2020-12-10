@@ -1,13 +1,13 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ModelClass, transaction } from 'objection';
-import { RoleModel } from 'src/database/models/role.model';
-import { UsersRolesService } from 'src/users/user-roles.service';
+import { CollectionModel } from 'src/database/models/collection.model';
+import { ItemsService } from './items.service';
 
 @Injectable()
-export class RolesService {
+export class CollectionsService {
   constructor(
-    private userRolesService: UsersRolesService,
-    @Inject('RoleModel') private modelClass: ModelClass<RoleModel>,
+    private itemsService: ItemsService,
+    @Inject('CollectionModel') private modelClass: ModelClass<CollectionModel>,
   ) {}
 
   findAll() {
@@ -18,11 +18,11 @@ export class RolesService {
     return this.modelClass.query().findById(id);
   }
 
-  create(props: Partial<RoleModel>) {
+  create(props: Partial<CollectionModel>) {
     return this.modelClass.query().insert(props).returning('*');
   }
 
-  update(id: number, props: Partial<RoleModel>) {
+  update(id: number, props: Partial<CollectionModel>) {
     return this.modelClass
       .query()
       .patch(props)
@@ -38,7 +38,7 @@ export class RolesService {
   }
 
   async destroyWithDependents(id, tx) {
-    await this.userRolesService.deleteByRoleId(id).transacting(tx);
+    await this.itemsService.deleteByCollectionId(id).transacting(tx);
 
     return this.modelClass
       .query()
@@ -48,10 +48,11 @@ export class RolesService {
       .transacting(tx);
   }
 
-  async deleteByGroupId(groupId, tx) {
-    const roles = await this.modelClass.query().where({ groupId });
+  async deleteByGroupId(groupId: number, tx) {
+    const collections = await this.modelClass.query().where({ groupId });
+
     return Promise.all(
-      roles.map(({ id }) => this.destroyWithDependents(id, tx)),
+      collections.map(({ id }) => this.destroyWithDependents(id, tx)),
     );
   }
 }
