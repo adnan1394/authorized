@@ -44,4 +44,20 @@ export class UsersController {
   ) {
     return this.usersService.update(id, { email });
   }
+
+  @Put(':id/roles/:roleId')
+  async addRole(
+    @Param('id', new ParseIntPipe()) id: number,
+    @Param('roleId', new ParseIntPipe()) roleId: number,
+  ) {
+    return this.usersService.addRole(id, roleId);
+  }
+
+  @Delete(':id/roles/:roleId')
+  async removeRole(
+    @Param('id', new ParseIntPipe()) id: number,
+    @Param('roleId', new ParseIntPipe()) roleId: number,
+  ) {
+    return this.usersService.removeRole(id, roleId);
+  }
 }
