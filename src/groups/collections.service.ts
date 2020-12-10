@@ -14,8 +14,16 @@ export class CollectionsService {
     return this.modelClass.query();
   }
 
+  findAllByGroup(groupId: number) {
+    return this.modelClass.query().where({ groupId });
+  }
+
   findOne(id: number) {
     return this.modelClass.query().findById(id);
+  }
+
+  findOneByGroup(id: number, groupId: number) {
+    return this.modelClass.query().where({ id, groupId }).first();
   }
 
   create(props: Partial<CollectionModel>) {
