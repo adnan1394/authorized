@@ -25,7 +25,7 @@ export class UserModel extends BaseModel {
           from: 'users.id',
           through: {
             from: 'user_roles.user_id',
-            to: 'user_roles.roles_id',
+            to: 'user_roles.role_id',
           },
           to: 'roles.id',
         },

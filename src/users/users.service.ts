@@ -2,18 +2,44 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ModelClass } from 'objection';
 import { UserModel } from 'src/database/models/user.model';
 
-// This should be a real class/interface representing a user entity
-export type User = any;
-
 @Injectable()
 export class UsersService {
   constructor(@Inject('UserModel') private modelClass: ModelClass<UserModel>) {}
-
-  async findByEmail(email: string): Promise<User | undefined> {
-    return this.modelClass.query().where({ email }).returning('*').first();
+  findAll() {
+    return this.modelClass.query().select('id', 'email');
   }
 
-  async findOne(id: number): Promise<User | undefined> {
-    return this.modelClass.query().select("id", "email").findById(id);
+  findOne(id: number) {
+    return this.modelClass
+      .query()
+      .select('id', 'email')
+      .findById(id)
+      .eager('[roles]');
+  }
+
+  findByEmail(email: string) {
+    return this.modelClass.query().where({ email }).first().eager('[roles]');
+  }
+
+  create(props: Partial<UserModel>) {
+    return this.modelClass.query().insert(props).returning('*');
+  }
+
+  update(id: number, props: Partial<UserModel>) {
+    return this.modelClass
+      .query()
+      .patch(props)
+      .where({ id })
+      .returning('*')
+      .first();
+  }
+
+  delete(id: number) {
+    return this.modelClass
+      .query()
+      .delete()
+      .where({ id })
+      .returning('*')
+      .first();
   }
 }
