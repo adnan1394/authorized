@@ -19,7 +19,7 @@ const models = [
 
 const modelProviders = models.map((model) => {
   return {
-    provide: model.tableName,
+    provide: model.name,
     useValue: model,
   };
 });

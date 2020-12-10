@@ -1,6 +1,7 @@
 import { BaseModel } from './base.model';
 import { Model } from 'objection';
 import { RoleModel } from './role.model';
+import * as bcrypt from 'bcrypt';
 
 export class UserModel extends BaseModel {
   static get tableName() {
@@ -8,7 +9,12 @@ export class UserModel extends BaseModel {
   }
 
   email: string;
+  password: string;
   roles: RoleModel[];
+
+  async $beforeInsert() {
+    this.password = await bcrypt.hash(this.password, 10);
+  }
 
   static get relationMappings() {
     return {
