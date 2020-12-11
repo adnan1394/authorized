@@ -5,7 +5,6 @@ import {
   Inject,
   NotFoundException,
 } from '@nestjs/common';
-import { val } from 'objection';
 import { CollectionsService } from 'src/groups/collections.service';
 
 @Injectable()

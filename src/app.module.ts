@@ -7,6 +7,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { RolesModule } from './roles/roles.module';
 import { GroupsModule } from './groups/groups.module';
 import { ItemsModule } from './items/items.module';
+import { CollectionsModule } from './collections/collections.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ItemsModule } from './items/items.module';
     RolesModule,
     GroupsModule,
     ItemsModule,
+    CollectionsModule,
   ],
   providers: [
     {
