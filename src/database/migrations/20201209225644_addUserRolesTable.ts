@@ -10,6 +10,7 @@ export async function up(knex: Knex) {
     t.foreign('user_id').references('users.id');
     t.integer('role_id');
     t.foreign('role_id').references('roles.id');
+    t.unique(['user_id', 'role_id']);
   });
 }
 

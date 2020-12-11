@@ -9,6 +9,7 @@ export async function up(knex: Knex) {
     t.string('role').notNullable();
     t.integer('group_id').nullable();
     t.foreign('group_id').references('groups.id');
+    t.unique(['role', 'group_id']);
   });
 }
 

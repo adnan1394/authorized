@@ -6,7 +6,7 @@ export async function up(knex: Knex) {
   return knex.schema.createTable(tableName, (t) => {
     // this creates an "id" column that gets autoincremented
     t.increments().primary();
-    t.string('email').notNullable();
+    t.string('email').unique().notNullable();
     t.string('password').notNullable();
   });
 }
