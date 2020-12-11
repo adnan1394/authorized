@@ -10,7 +10,7 @@ export class ItemModel extends BaseModel {
   name: string;
   parentId: number;
   collection: CollectionModel;
-  
+
   static get relationMappings() {
     return {
       collection: {
