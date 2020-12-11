@@ -7,8 +7,10 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+import { CollectionsGuard } from 'src/auth/collections-guard';
 import { CollectionModel } from 'src/database/models/collection.model';
 import { GroupModel } from 'src/database/models/group.model';
 import { ItemModel } from 'src/database/models/item.model';
@@ -53,11 +55,13 @@ export class GroupsController {
     return this.groupsService.update(id, props);
   }
 
+  @UseGuards(CollectionsGuard)
   @Get(':groupId/collections')
   async getCollections(@Param('groupId', new ParseIntPipe()) groupId: number) {
     return this.collectionService.findAllByGroup(groupId);
   }
 
+  @UseGuards(CollectionsGuard)
   @Get(':groupId/collections/:collectionId')
   async getCollection(
     @Param('groupId', new ParseIntPipe()) groupId: number,
@@ -66,6 +70,7 @@ export class GroupsController {
     return this.collectionService.findOneByGroup(collectionId, groupId);
   }
 
+  @UseGuards(CollectionsGuard)
   @Post(':groupId/collections')
   async addCollection(
     @Param('groupId', new ParseIntPipe()) groupId: number,
@@ -74,6 +79,7 @@ export class GroupsController {
     return this.collectionService.create({ ...props, groupId });
   }
 
+  @UseGuards(CollectionsGuard)
   @Put(':groupId/collections/:collectionId')
   async editCollection(
     @Param('id', new ParseIntPipe()) groupId: number,
@@ -83,6 +89,7 @@ export class GroupsController {
     return this.collectionService.update(collectionId, { ...props, groupId });
   }
 
+  @UseGuards(CollectionsGuard)
   @Delete(':groupId/collections/:collectionId')
   async removeCollection(
     @Param('collectionId', new ParseIntPipe()) collectionId: number,
@@ -90,6 +97,7 @@ export class GroupsController {
     return this.collectionService.delete(collectionId);
   }
 
+  @UseGuards(CollectionsGuard)
   @Get(':groupId/collections/:collectionId/items')
   async getItems(
     @Param('collectionId', new ParseIntPipe()) collectionId: number,
