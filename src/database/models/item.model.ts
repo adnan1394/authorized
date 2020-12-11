@@ -9,14 +9,15 @@ export class ItemModel extends BaseModel {
 
   name: string;
   parentId: number;
-
+  collection: CollectionModel;
+  
   static get relationMappings() {
     return {
       collection: {
         modelClass: `${__dirname}/collection.model`,
         relation: Model.BelongsToOneRelation,
         join: {
-          from: 'items.parent_id',
+          from: 'items.parentId',
           to: 'collections.id',
         },
       },
