@@ -81,3 +81,10 @@ PUT groups/:groupId/collections/:collectionId/items/:itemId
 DELETE groups/:groupId/collections/:collectionId/items/:itemId
 
 ```
+
+## TODOs for later :)
+
+```bash
+ * Implement interfaces to validate output of APIs
+ * Clean-up common guard implementation to make it DRY
+```

@@ -15,6 +15,7 @@ export class ItemsGuard implements CanActivate {
   }
 
   async validateRequest(execContext: ExecutionContext): Promise<boolean> {
+    // TODO: Refactor to make it DRY
     const request = execContext.switchToHttp().getRequest();
     const { user, method, params, body } = request;
     const { roles } = user;
