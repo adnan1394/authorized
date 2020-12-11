@@ -11,7 +11,7 @@ export class UsersService {
   ) {}
 
   findAll() {
-    return this.modelClass.query().select('id', 'email');
+    return this.modelClass.query().select('id', 'email').eager('[roles]');
   }
 
   findOne(id: number) {

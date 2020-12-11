@@ -22,8 +22,8 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-  @Get(':id')
-  async findOne(@Param('id', new ParseIntPipe()) id: number) {
+  @Get(':userId')
+  async findOne(@Param('userId', new ParseIntPipe()) id: number) {
     return this.usersService.findOne(id);
   }
 
@@ -32,30 +32,30 @@ export class UsersController {
     return this.usersService.create(props);
   }
 
-  @Delete(':id')
-  async delete(@Param('id', new ParseIntPipe()) id: number) {
+  @Delete(':userId')
+  async delete(@Param('userId', new ParseIntPipe()) id: number) {
     return this.usersService.delete(id);
   }
 
-  @Put(':id')
+  @Put(':userId')
   async edit(
-    @Param('id', new ParseIntPipe()) id: number,
+    @Param('userId', new ParseIntPipe()) id: number,
     @Body('email') email: string,
   ) {
     return this.usersService.update(id, { email });
   }
 
-  @Put(':id/roles/:roleId')
+  @Put(':userId/roles/:roleId')
   async addRole(
-    @Param('id', new ParseIntPipe()) id: number,
+    @Param('userId', new ParseIntPipe()) id: number,
     @Param('roleId', new ParseIntPipe()) roleId: number,
   ) {
     return this.usersService.addRole(id, roleId);
   }
 
-  @Delete(':id/roles/:roleId')
+  @Delete(':userId/roles/:roleId')
   async removeRole(
-    @Param('id', new ParseIntPipe()) id: number,
+    @Param('userId', new ParseIntPipe()) id: number,
     @Param('roleId', new ParseIntPipe()) roleId: number,
   ) {
     return this.usersService.removeRole(id, roleId);

@@ -7,13 +7,16 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+import { RolesGuard } from 'src/auth/roles-guard';
 import { RoleModel } from 'src/database/models/role.model';
 import { NotFoundInterceptor } from 'src/shared/not-found.interceptor';
 import { RolesService } from './roles.service';
 
 @Controller('roles')
+@UseGuards(RolesGuard)
 @UseInterceptors(NotFoundInterceptor)
 export class RolesController {
   constructor(private rolesService: RolesService) {}
@@ -22,8 +25,8 @@ export class RolesController {
     return this.rolesService.findAll();
   }
 
-  @Get(':id')
-  async findOne(@Param('id', new ParseIntPipe()) id: number) {
+  @Get(':roleId')
+  async findOne(@Param('roleId', new ParseIntPipe()) id: number) {
     return this.rolesService.findOne(id);
   }
 
@@ -32,14 +35,14 @@ export class RolesController {
     return this.rolesService.create(props);
   }
 
-  @Delete(':id')
-  async delete(@Param('id', new ParseIntPipe()) id: number) {
+  @Delete(':roleId')
+  async delete(@Param('roleId', new ParseIntPipe()) id: number) {
     return this.rolesService.delete(id);
   }
 
-  @Put(':id')
+  @Put(':roleId')
   async edit(
-    @Param('id', new ParseIntPipe()) id: number,
+    @Param('roleId', new ParseIntPipe()) id: number,
     @Body() props: Partial<RoleModel>,
   ) {
     return this.rolesService.update(id, props);
