@@ -1,5 +1,6 @@
 import { Model } from 'objection';
 import { BaseModel } from './base.model';
+import { GroupModel } from './group.model';
 import { ItemModel } from './item.model';
 
 export class CollectionModel extends BaseModel {
@@ -10,6 +11,7 @@ export class CollectionModel extends BaseModel {
   name: string;
   groupId: number;
   items: ItemModel[];
+  group: GroupModel;
 
   static get relationMappings() {
     return {

@@ -1,5 +1,6 @@
 import { BaseModel } from './base.model';
 import { Model } from 'objection';
+import { CollectionModel } from './collection.model';
 
 export class GroupModel extends BaseModel {
   static get tableName() {
@@ -7,6 +8,7 @@ export class GroupModel extends BaseModel {
   }
 
   name: string;
+  collections: CollectionModel[];
 
   static get relationMappings() {
     return {

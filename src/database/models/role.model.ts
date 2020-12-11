@@ -7,7 +7,8 @@ export class RoleModel extends BaseModel {
     return 'roles';
   }
   role: string;
-  groupId: GroupModel;
+  groupId: number;
+  group: GroupModel;
 
   validate() {
     if (!['regular', 'manager', 'globalManager'].includes(this.role)) {
