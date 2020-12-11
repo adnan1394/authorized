@@ -6,9 +6,17 @@ import { JwtAuthGuard } from './auth/jwt-auth-guard';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesModule } from './roles/roles.module';
 import { GroupsModule } from './groups/groups.module';
+import { ItemsModule } from './items/items.module';
 
 @Module({
-  imports: [DatabaseModule, UsersModule, AuthModule, RolesModule, GroupsModule],
+  imports: [
+    DatabaseModule,
+    UsersModule,
+    AuthModule,
+    RolesModule,
+    GroupsModule,
+    ItemsModule,
+  ],
   providers: [
     {
       provide: APP_GUARD,

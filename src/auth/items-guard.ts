@@ -5,7 +5,7 @@ import {
   Inject,
   NotFoundException,
 } from '@nestjs/common';
-import { ItemsService } from 'src/groups/items.service';
+import { ItemsService } from 'src/items/items.service';
 
 @Injectable()
 export class ItemsGuard implements CanActivate {

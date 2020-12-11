@@ -7,14 +7,17 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+import { AdminGuard } from 'src/auth/admin-guard';
 import { UserModel } from 'src/database/models/user.model';
 import { NotFoundInterceptor } from 'src/shared/not-found.interceptor';
 import { UsersService } from './users.service';
 
 @Controller('users')
 @UseInterceptors(NotFoundInterceptor)
+@UseGuards(AdminGuard)
 export class UsersController {
   constructor(private usersService: UsersService) {}
   @Get()

@@ -18,7 +18,8 @@ import { ItemModel } from 'src/database/models/item.model';
 import { NotFoundInterceptor } from 'src/shared/not-found.interceptor';
 import { CollectionsService } from './collections.service';
 import { GroupsService } from './groups.service';
-import { ItemsService } from './items.service';
+import { ItemsService } from '../items/items.service';
+import { AdminGuard } from 'src/auth/admin-guard';
 
 @Controller('groups')
 @UseInterceptors(NotFoundInterceptor)
@@ -28,26 +29,31 @@ export class GroupsController {
     private collectionService: CollectionsService,
     private itemsService: ItemsService,
   ) {}
+  @UseGuards(AdminGuard)
   @Get()
   async findAll() {
     return this.groupsService.findAll();
   }
 
+  @UseGuards(AdminGuard)
   @Get(':groupId')
   async findOne(@Param('groupId', new ParseIntPipe()) id: number) {
     return this.groupsService.findOne(id);
   }
 
+  @UseGuards(AdminGuard)
   @Post()
   async create(@Body() props: Partial<GroupModel>) {
     return this.groupsService.create(props);
   }
 
+  @UseGuards(AdminGuard)
   @Delete(':groupId')
   async delete(@Param('groupId', new ParseIntPipe()) id: number) {
     return this.groupsService.delete(id);
   }
 
+  @UseGuards(AdminGuard)
   @Put(':groupId')
   async edit(
     @Param('groupId', new ParseIntPipe()) id: number,

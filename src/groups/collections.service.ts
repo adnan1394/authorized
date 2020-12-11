@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ModelClass, transaction } from 'objection';
 import { CollectionModel } from 'src/database/models/collection.model';
-import { ItemsService } from './items.service';
+import { ItemsService } from '../items/items.service';
 
 @Injectable()
 export class CollectionsService {
